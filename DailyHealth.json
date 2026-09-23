@@ -1,0 +1,172 @@
+[
+    {
+        "JobNumber": 10,
+        "Type": "SSL",
+        "Description": "Public certificate expiration",
+        "JobParameters": {
+            "DomainList": [
+                "portal.example.com",
+                "www.example.com",
+                "api.example.com"
+            ]
+        }
+    },
+    {
+        "JobNumber": 20,
+        "Type": "SSL",
+        "Description": "Internally issued certificate expiration",
+        "JobParameters": {
+            "Internal": true,
+            "ExcludedTemplates": [
+                "1.3.6.1.4.1.311.21.8.1234567.1234567.1234567.1234567.1234567.170.1.32",
+                "1.3.6.1.4.1.311.21.8.1234567.1234567.1234567.1234567.1234567.170.11718823.1559697",
+                "1.3.6.1.4.1.311.21.8.1234567.1234567.1234567.1234567.1234567.170.12805401.6239994"
+            ]
+        }
+    },
+    {
+        "JobNumber": 30,
+        "Type": "URL",
+        "Description": "Application endpoints from the application server",
+        "JobParameters": {
+            "ComputerName": "HealthCheck01",
+            "URIList": [
+                "https://portal.example.com/health",
+                "https://api.example.com/status"
+            ],
+            "ProxyList": [
+                "None"
+            ]
+        }
+    },
+    {
+        "JobNumber": 40,
+        "Type": "URL",
+        "Description": "Vendor relay through both egress paths",
+        "JobParameters": {
+            "ComputerName": "HealthCheck01",
+            "URIList": [
+                "https://relay.vendor.example/ping"
+            ],
+            "ProxyList": [
+                "None",
+                "http://proxy01.example.com:8080",
+                "http://proxy02.example.com:8080"
+            ],
+            "Method": "Get",
+            "ExpectedResult": "OK",
+            "Headers": {
+                "Accept": "text/plain",
+                "X-Api-Key": "replace-me"
+            }
+        }
+    },
+    {
+        "JobNumber": 50,
+        "Type": "DNS",
+        "Description": "Resolver matrix from the site server",
+        "JobParameters": {
+            "ComputerName": "HealthCheck01",
+            "DNSServer": [
+                {
+                    "IP": "10.10.1.10"
+                },
+                {
+                    "IP": "10.10.2.10"
+                },
+                {
+                    "IP": "10.20.1.10"
+                }
+            ],
+            "HostName": [
+                "portal.example.com",
+                "dns01.corp.example.com",
+                "_ldap._tcp.corp.example.com"
+            ]
+        }
+    },
+    {
+        "JobNumber": 60,
+        "Type": "VEEAM",
+        "Description": "Backup job results",
+        "JobParameters": {
+            "VBRServer": [
+                "VEEAM01",
+                "VEEAM02"
+            ],
+            "JobTimeOut": 600
+        }
+    },
+    {
+        "JobNumber": 70,
+        "Type": "VMWare",
+        "Description": "vCenter triggered alarms",
+        "JobParameters": {
+            "VIServer": [
+                "vcenter01.corp.example.com",
+                "vcenter02.corp.example.com"
+            ]
+        }
+    },
+    {
+        "JobNumber": 80,
+        "Type": "UCS",
+        "Description": "UCS Manager faults",
+        "JobParameters": {
+            "SessionPath": "C:\\Scripts\\Config\\ucs.session",
+            "KeyPath": "C:\\Scripts\\Config\\ucs.key"
+        }
+    },
+    {
+        "JobNumber": 90,
+        "Type": "SWN",
+        "Description": "Orion nodes down",
+        "JobParameters": {
+            "SWISServer": "orion01.corp.example.com",
+            "Trusted": true
+        }
+    },
+    {
+        "JobNumber": 100,
+        "Type": "SWI",
+        "Description": "Orion interfaces down",
+        "JobParameters": {
+            "SWISServer": "orion01.corp.example.com",
+            "Trusted": true
+        }
+    },
+    {
+        "JobNumber": 110,
+        "Type": "SWA",
+        "Description": "Orion active alerts",
+        "JobParameters": {
+            "SWISServer": "orion01.corp.example.com",
+            "Trusted": true
+        }
+    },
+    {
+        "JobNumber": 120,
+        "Type": "AGO",
+        "Description": "ArcGIS Online service status",
+        "JobParameters": {
+            "ComputerName": "HealthCheck01",
+            "AGOStatusURL": "https://status.arcgis.com/api/v1/status.json"
+        }
+    },
+    {
+        "JobNumber": 130,
+        "Type": "HVAC",
+        "Description": "HVAC controller - main site",
+        "JobParameters": {
+            "IP": "10.20.30.40"
+        }
+    },
+    {
+        "JobNumber": 140,
+        "Type": "HVAC",
+        "Description": "HVAC controller - backup site",
+        "JobParameters": {
+            "IP": "10.20.30.41"
+        }
+    }
+]
